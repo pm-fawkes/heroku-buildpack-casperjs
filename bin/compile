@@ -8,12 +8,11 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 # config
-VERSION="2.1.1"
+VERSION="2.5.0-beta"
 CASPER_VERSION="master"
-
 # Buildpack URL
-ARCHIVE_NAME=phantomjs-${VERSION}-linux-x86_64
-FILE_NAME=${ARCHIVE_NAME}.tar.bz2
+ARCHIVE_NAME=phantomjs-${VERSION}-ubuntu-xenial-x86_64
+FILE_NAME=${ARCHIVE_NAME}.tar.gz
 BUILDPACK_PHANTOMJS_PACKAGE=https://bitbucket.org/ariya/phantomjs/downloads/${FILE_NAME}
 
 mkdir -p $CACHE_DIR
@@ -25,7 +24,7 @@ fi
 echo "-----> Extracting PhantomJS ${VERSION} binaries to ${BUILD_DIR}/vendor/phantomjs"
 mkdir -p $CACHE_DIR/$ARCHIVE_NAME
 mkdir -p $BUILD_DIR/vendor
-tar jxf $CACHE_DIR/$FILE_NAME -C $CACHE_DIR
+tar zxf $CACHE_DIR/$FILE_NAME -C $CACHE_DIR
 mv $CACHE_DIR/$ARCHIVE_NAME $BUILD_DIR/vendor/phantomjs
 
 echo "-----> Cloning CasperJS"
