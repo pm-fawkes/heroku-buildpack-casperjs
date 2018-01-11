@@ -8,24 +8,25 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 # config
-VERSION="2.5.0-beta"
+VERSION="2.1.1"
 CASPER_VERSION="master"
+
 # Buildpack URL
-ARCHIVE_NAME=phantomjs-${VERSION}-linux-ubuntu-trusty-x86_64.tar.gz
-ARCHIVE_ROOT_FOLDER=phantomjs-${VERSION}-ubuntu-trusty
-BUILDPACK_PHANTOMJS_PACKAGE=https://bitbucket.org/ariya/phantomjs/downloads/${ARCHIVE_NAME}
+ARCHIVE_NAME=phantomjs-${VERSION}-linux-x86_64
+FILE_NAME=${ARCHIVE_NAME}.tar.bz2
+BUILDPACK_PHANTOMJS_PACKAGE=https://bitbucket.org/ariya/phantomjs/downloads/${FILE_NAME}
 
 mkdir -p $CACHE_DIR
-if ! [ -e $CACHE_DIR/$ARCHIVE_NAME ]; then
+if ! [ -e $CACHE_DIR/$FILE_NAME ]; then
   echo "-----> Fetching PhantomJS ${VERSION} binaries at ${BUILDPACK_PHANTOMJS_PACKAGE}"
-  curl $BUILDPACK_PHANTOMJS_PACKAGE -L -s -o $CACHE_DIR/$ARCHIVE_NAME
+  curl $BUILDPACK_PHANTOMJS_PACKAGE -L -s -o $CACHE_DIR/$FILE_NAME
 fi
 
 echo "-----> Extracting PhantomJS ${VERSION} binaries to ${BUILD_DIR}/vendor/phantomjs"
-tar zxfv $CACHE_DIR/$ARCHIVE_NAME -C $CACHE_DIR
-mkdir -p $BUILD_DIR/vendor/phantomjs
-mv $CACHE_DIR/$ARCHIVE_ROOT_FOLDER/* $BUILD_DIR/vendor/phantomjs
-chmod a+x $BUILD_DIR/vendor/phantomjs/bin/*
+mkdir -p $CACHE_DIR/$ARCHIVE_NAME
+mkdir -p $BUILD_DIR/vendor
+tar jxf $CACHE_DIR/$FILE_NAME -C $CACHE_DIR
+mv $CACHE_DIR/$ARCHIVE_NAME $BUILD_DIR/vendor/phantomjs
 
 echo "-----> Cloning CasperJS"
 cd ${BUILD_DIR}/vendor
