@@ -11,8 +11,8 @@ CACHE_DIR=$2
 VERSION="2.5.0-beta"
 CASPER_VERSION="master"
 # Buildpack URL
-ARCHIVE_NAME=phantomjs-${VERSION}-linux-ubuntu-xenial-x86_64.tar.gz
-ARCHIVE_ROOT_FOLDER=phantomjs-${VERSION}-ubuntu-xenial
+ARCHIVE_NAME=phantomjs-${VERSION}-linux-ubuntu-trusty-x86_64.tar.gz
+ARCHIVE_ROOT_FOLDER=phantomjs-${VERSION}-ubuntu-trusty
 BUILDPACK_PHANTOMJS_PACKAGE=https://bitbucket.org/ariya/phantomjs/downloads/${ARCHIVE_NAME}
 
 mkdir -p $CACHE_DIR
